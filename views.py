@@ -5,8 +5,31 @@ GAME_HEADER = """
 <p>At any time you can <a href='/reset/'>reset</a> your game.</p>
 """
 
-
 @simple_route('/')
+def hello(world: dict) -> str:
+    """
+    Welcome screen
+
+    :param world: Current world
+    :return: HTML for the page
+    """
+    return GAME_HEADER + """Hello and welcome to the GAME? <br>
+    This game is (instructions here). <br>
+    
+    <a href="goto/petfacility/">Go to the pet area.</a><br>
+    <a href="goto/town">Go to the town.</a><br>
+    """
+
+@simple_route('/goto/<where>/')
+def place(world: dict, where: str) -> str:
+    """
+    Decide where the player is and show the options
+    :param world: Current world
+    :param where: Where the player is
+    :return: HTML to show player
+    """
+
+'''@simple_route('/')
 def hello(world: dict) -> str:
     """
     The welcome screen for the game.
@@ -14,9 +37,9 @@ def hello(world: dict) -> str:
     :param world: The current world
     :return: The HTML to show the player
     """
-    return GAME_HEADER+"""You are in the Lair of the Corgis.<br>
+    return GAME_HEADER+"""You are in the Town of Dogs.<br>
     
-    <a href="goto/lair">Go further into the lair.</a><br>
+    <a href="goto/lair">Go further into the Town.</a><br>
     <a href="goto/entrance">Retreat.</a>"""
 
 
@@ -65,4 +88,4 @@ def save_name(world: dict, monsters_name: str) -> str:
     return GAME_HEADER+"""You are in {where}, and you are nearby {monster_name}
     <br><br>
     <a href='/'>Return to the start</a>
-    """.format(where=world['location'], monster_name=world['name'])
+    """.format(where=world['location'], monster_name=world['name'])'''
