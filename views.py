@@ -1,7 +1,7 @@
 from route_helper import simple_route
 
 GAME_HEADER = """
-<h1>Welcome to adventure quest!</h1>
+<h1>Welcome to Pet Quest!</h1>
 <p>At any time you can <a href='/reset/'>reset</a> your game.</p>
 """
 
@@ -28,6 +28,29 @@ def place(world: dict, where: str) -> str:
     :param where: Where the player is
     :return: HTML to show player
     """
+
+    world["location"] = where
+    if where == "petfacility":
+        return GAME_HEADER + """Welcome to the Pet Facility.<br>
+        Choose your new pet to take care of.<br>
+        <link rel = "stylesheet" href = "/static/imagefix.css" >
+        <a href="/ask/eagle/">
+            <img src="/static/eagle.jpg" alt="Picture of eagle">
+        </a>
+        <a href="/ask/jellyfish/">
+            <img src="/static/jellyfish.jpg" alt="Picture of jellyfish">
+        </a>
+        <a href="/ask/leopard/">
+            <img src="/static/leopard.jpg" alt="Picture of leopard">
+        </a>
+        """
+    elif where == "town":
+        return GAME_HEADER + """This is the town. It's pretty empty right now.
+        """
+
+@simple_route('/ask/<pet>/')
+def 
+
 
 '''@simple_route('/')
 def hello(world: dict) -> str:

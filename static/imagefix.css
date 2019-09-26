@@ -1,0 +1,9 @@
+img {
+    border: 1px solid #aaaaaa;
+    border-radius: 4px;
+    padding: 3px;
+    width: 150px;
+}
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 255, 186, 0.3)
+}
