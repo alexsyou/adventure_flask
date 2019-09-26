@@ -5,6 +5,12 @@ GAME_HEADER = """
 <p>At any time you can <a href='/reset/'>reset</a> your game.</p>
 """
 
+CHOOSE_PET = """
+Are you sure you want to choose a {}?<br>
+
+<a href="/goto/petfacility/">No, I'm still deciding.</a><br>
+<a href="/pet/naming/">Yes, I've decided.</a><br>
+"""
 @simple_route('/')
 def hello(world: dict) -> str:
     """
@@ -49,8 +55,25 @@ def place(world: dict, where: str) -> str:
         """
 
 @simple_route('/ask/<pet>/')
-def 
+def question(world: dict, pet: str) -> str:
+    """
+    This asks if you really want to pick the pet
 
+    :param: world: The current world
+    :param pet: The pet that you are considering
+    :return: HTML of the page
+    """
+    world['pet'] = pet
+    return GAME_HEADER + CHOOSE_PET.format(pet)
+
+@simple_route('/pet/naming')
+def name(world: dict) -> str:
+    """
+    Place to name your pet
+
+    :param world: The current world
+    :return: HTML that shows the page
+    """
 
 '''@simple_route('/')
 def hello(world: dict) -> str:
