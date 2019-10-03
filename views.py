@@ -49,6 +49,9 @@ def place(world: dict, where: str) -> str:
         <a href="/ask/leopard/">
             <img src="/static/leopard.jpg" alt="Picture of leopard">
         </a>
+        <a href="/ask/elephant/">
+            <img src="/static/elephant.jpg" alt="Picture of elephant">
+        </a>
         """
     elif where == "town":
         return GAME_HEADER + """This is the town. It's pretty empty right now.
@@ -64,15 +67,26 @@ def question(world: dict, pet: str) -> str:
     :return: HTML of the page
     """
     world['pet'] = pet
+    if pet == 'elephant':
+        world['image'] = '<img src="/static/elephant.jpg" alt="Picture of elephant"/>'
+    elif pet == 'leopard':
+        world['image'] = '<img src="/static/leopard.jpg" alt="Picture of leopard"/>'
+    elif pet == 'jellyfish':
+        world['image'] = '<img src="/static/jellyfish.jpg" alt="Picture of jellyfish"/>'
+    elif pet == 'eagle':
+        world['image'] = '<img src="/static/eagle.jpg" alt="Picture of eagle"/>'
     return GAME_HEADER + CHOOSE_PET.format(pet)
 
-@simple_route('/pet/naming')
+@simple_route('/pet/naming/')
 def name(world: dict) -> str:
     """
     Place to name your pet
 
     :param world: The current world
     :return: HTML that shows the page
+    """
+    return GAME_HEADER+'<link rel = "stylesheet" href = "/static/image.css" >' + "You have chosen the " + world['pet'] +  " as a pet.<br>" + world['image'] + """<br>
+    What would you like to name your new pet?<br>
     """
 
 '''@simple_route('/')
