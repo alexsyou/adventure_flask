@@ -1,9 +1,5 @@
 from route_helper import simple_route
-
-GAME_HEADER = """
-<h1>Welcome to Pet Quest!</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
-"""
+from flask import render_template
 
 CHOOSE_PET = """
 Are you sure you want to choose a {}?<br>
@@ -11,6 +7,10 @@ Are you sure you want to choose a {}?<br>
 <a href="/goto/petfacility/">No, I'm still deciding.</a><br>
 <a href="/pet/naming/">Yes, I've decided.</a><br>
 """
+
+
+
+
 @simple_route('/')
 def hello(world: dict) -> str:
     """
@@ -19,7 +19,8 @@ def hello(world: dict) -> str:
     :param world: Current world
     :return: HTML for the page
     """
-    return GAME_HEADER + """Hello and welcome to the GAME? <br>
+    return render_template('index.html')
+           + """Hello and welcome to the GAME? <br>
     This game is (instructions here). <br>
     
     <a href="goto/petfacility/">Go to the pet area.</a><br>
