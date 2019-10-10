@@ -1,5 +1,5 @@
 from route_helper import simple_route
-from flask import render_template
+from flask import render_template, request
 
 CHOOSE_PET = """
 Are you sure you want to choose a {}?<br>
@@ -65,6 +65,17 @@ def name(world: dict) -> str:
     :return: HTML that shows the page
     """
     return render_template('petnaming.html', pet=world['pet'], image=world['image'])
+
+@simple_route('/pet/naming/', methods=['POST'])
+def name_post(world: dict) -> str:
+    """
+    Pet has been named
+
+    :param world: The current world
+    :return: HTML that shows page
+    """
+    world['name'] = request.form['name']
+    return render_template('nameconfirm.html', pet=world['pet'], image=world['image'], name=world['name'])
 
 '''@simple_route('/')
 def hello(world: dict) -> str:
