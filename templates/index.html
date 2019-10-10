@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Welcome to Pet Quest!</h1>
-<p>At any time you can <a href='/reset/'>reset</a> your game.</p>
+{% block content %}
+    Hello and welcome to the GAME? <br>
+    This game is (instructions here). <br>
 
-</body>
-</html>
+    <a href="goto/petfacility/">Go to the pet area.</a><br>
+    <a href="goto/town">Go to the town.</a><br>
+{% endblock %}

@@ -20,12 +20,6 @@ def hello(world: dict) -> str:
     :return: HTML for the page
     """
     return render_template('index.html')
-           + """Hello and welcome to the GAME? <br>
-    This game is (instructions here). <br>
-    
-    <a href="goto/petfacility/">Go to the pet area.</a><br>
-    <a href="goto/town">Go to the town.</a><br>
-    """
 
 @simple_route('/goto/<where>/')
 def place(world: dict, where: str) -> str:
@@ -38,25 +32,9 @@ def place(world: dict, where: str) -> str:
 
     world["location"] = where
     if where == "petfacility":
-        return GAME_HEADER + """Welcome to the Pet Facility.<br>
-        Choose your new pet to take care of.<br>
-        <link rel = "stylesheet" href = "/static/imagefix.css" >
-        <a href="/ask/eagle/">
-            <img src="/static/eagle.jpg" alt="Picture of eagle">
-        </a>
-        <a href="/ask/jellyfish/">
-            <img src="/static/jellyfish.jpg" alt="Picture of jellyfish">
-        </a>
-        <a href="/ask/leopard/">
-            <img src="/static/leopard.jpg" alt="Picture of leopard">
-        </a>
-        <a href="/ask/elephant/">
-            <img src="/static/elephant.jpg" alt="Picture of elephant">
-        </a>
-        """
+        return render_template('petfacility.html')
     elif where == "town":
-        return GAME_HEADER + """This is the town. It's pretty empty right now.
-        """
+        return render_template('town.html')
 
 @simple_route('/ask/<pet>/')
 def question(world: dict, pet: str) -> str:
@@ -69,14 +47,14 @@ def question(world: dict, pet: str) -> str:
     """
     world['pet'] = pet
     if pet == 'elephant':
-        world['image'] = '<img src="/static/elephant.jpg" alt="Picture of elephant"/>'
+        world['image'] = "/static/elephant.jpg"
     elif pet == 'leopard':
-        world['image'] = '<img src="/static/leopard.jpg" alt="Picture of leopard"/>'
+        world['image'] = "/static/leopard.jpg"
     elif pet == 'jellyfish':
-        world['image'] = '<img src="/static/jellyfish.jpg" alt="Picture of jellyfish"/>'
+        world['image'] = "/static/jellyfish.jpg"
     elif pet == 'eagle':
-        world['image'] = '<img src="/static/eagle.jpg" alt="Picture of eagle"/>'
-    return GAME_HEADER + CHOOSE_PET.format(pet)
+        world['image'] = "/static/eagle.jpg"
+    return render_template('askpet.html', pet=pet)
 
 @simple_route('/pet/naming/')
 def name(world: dict) -> str:
@@ -86,9 +64,7 @@ def name(world: dict) -> str:
     :param world: The current world
     :return: HTML that shows the page
     """
-    return GAME_HEADER+'<link rel = "stylesheet" href = "/static/image.css" >' + "You have chosen the " + world['pet'] +  " as a pet.<br>" + world['image'] + """<br>
-    What would you like to name your new pet?<br>
-    """
+    return render_template('petnaming.html', pet=world['pet'], image=world['image'])
 
 '''@simple_route('/')
 def hello(world: dict) -> str:
