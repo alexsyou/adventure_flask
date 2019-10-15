@@ -33,11 +33,11 @@ def place(world: dict, where: str) -> str:
 
     world["location"] = where
     if where == "petfacility":
-        return render_template('petfacility.html')
+        return render_template('petfacility.html', balance=world['balance'])
     elif where == "town":
-        return render_template('town.html')
-    elif where == "home"
-        return render_template('home.html', pet=world['pet'], name=world['name'])
+        return render_template('town.html', balance=world['balance'])
+    elif where == "home":
+        return render_template('home.html', pet=world['pet'], name=world['name'], balance=world['balance'])
 
 @simple_route('/ask/<pet>/')
 def question(world: dict, pet: str) -> str:
@@ -57,7 +57,7 @@ def question(world: dict, pet: str) -> str:
         world['image'] = "/static/jellyfish.jpg"
     elif pet == 'eagle':
         world['image'] = "/static/eagle.jpg"
-    return render_template('askpet.html', pet=pet)
+    return render_template('askpet.html', pet=pet, balance=world['balance'])
 
 @simple_route('/pet/naming/')
 def name(world: dict) -> str:
@@ -67,7 +67,7 @@ def name(world: dict) -> str:
     :param world: The current world
     :return: HTML that shows the page
     """
-    return render_template('petnaming.html', pet=world['pet'], image=world['image'])
+    return render_template('petnaming.html', pet=world['pet'], image=world['image'], balance=world['balance'])
 
 @simple_route('/pet/naming/', methods=['POST'])
 def name_post(world: dict, other) -> str:
@@ -79,7 +79,7 @@ def name_post(world: dict, other) -> str:
     :return: HTML that shows page
     """
     world['name'] = request.form['name']
-    return render_template('nameconfirm.html', pet=world['pet'], image=world['image'], name=world['name'])
+    return render_template('nameconfirm.html', pet=world['pet'], image=world['image'], name=world['name'], balance=world['balance'])
 
 '''@simple_route('/')
 def hello(world: dict) -> str:

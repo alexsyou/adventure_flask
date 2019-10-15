@@ -7,7 +7,13 @@
     <body>
 
         <h1>Welcome to Pet Quest!</h1>
-        <p>At any time you can <a href='/reset/'>reset</a> your game.</p>
+        <p>At any time you can <a href='/reset/'>reset</a> your game.<br>
+            {% if balance is defined %}
+                Balance = ${{ balance }}
+            {% else %}
+                Yo I forgot to display your balance on this page.
+            {% endif %}
+        </p>
         <hr>
         {% block content %}{% endblock %}
     </body>
