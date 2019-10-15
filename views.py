@@ -19,7 +19,8 @@ def hello(world: dict) -> str:
     :param world: Current world
     :return: HTML for the page
     """
-    return render_template('index.html')
+    world['balance'] = 0
+    return render_template('index.html', balance=world['balance'])
 
 @simple_route('/goto/<where>/')
 def place(world: dict, where: str) -> str:
@@ -35,6 +36,8 @@ def place(world: dict, where: str) -> str:
         return render_template('petfacility.html')
     elif where == "town":
         return render_template('town.html')
+    elif where == "home"
+        return render_template('home.html', pet=world['pet'], name=world['name'])
 
 @simple_route('/ask/<pet>/')
 def question(world: dict, pet: str) -> str:
@@ -67,10 +70,11 @@ def name(world: dict) -> str:
     return render_template('petnaming.html', pet=world['pet'], image=world['image'])
 
 @simple_route('/pet/naming/', methods=['POST'])
-def name_post(world: dict) -> str:
+def name_post(world: dict, other) -> str:
     """
     Pet has been named
 
+    :param other: I don't know what this is.
     :param world: The current world
     :return: HTML that shows page
     """
