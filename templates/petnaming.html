@@ -3,8 +3,9 @@
 {% block content %}
     You have chosen the {{ pet }} as your pet. <br>
     <link rel = "stylesheet" href = "/static/image.css">
-    <img src={{ image }} alt=Picture of your pet> <br>
+    <img src={{ image }} alt=Picture of your pet class="img-thumbnail"><br>
     Would you like to give it a name?
+
     <form method="POST">
         Name of pet:<br>
         <input type="text" name="name"><br>

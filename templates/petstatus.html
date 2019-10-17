@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <strong>Status Check:</strong><br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Animal</th>
+                <th scope="col">Speed</th>
+                <th scope="col">Size</th>
+                <th scope="col">Strength</th>
+                <th scope="col">Beauty</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">{{ name }}</th>
+                <td>{{ pet }}</td>
+                <td>{{ status.speed }}</td>
+                <td>{{ status.size }}</td>
+                <td>{{ status.strength }}</td>
+                <td>{{ status.beauty }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

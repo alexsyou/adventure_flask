@@ -20,6 +20,7 @@ def hello(world: dict) -> str:
     :return: HTML for the page
     """
     world['balance'] = 0
+    world['status'] = {}
     return render_template('index.html', balance=world['balance'])
 
 @simple_route('/goto/<where>/')
@@ -51,12 +52,36 @@ def question(world: dict, pet: str) -> str:
     world['pet'] = pet
     if pet == 'elephant':
         world['image'] = "/static/elephant.jpg"
+        world['status'] = {
+            "speed": 20,
+            "size": 95,
+            "strength": 80,
+            "beauty": 25
+        }
     elif pet == 'leopard':
         world['image'] = "/static/leopard.jpg"
+        world['status'] = {
+            "speed": 75,
+            "size": 70,
+            "strength": 75,
+            "beauty": 65,
+        }
     elif pet == 'jellyfish':
         world['image'] = "/static/jellyfish.jpg"
+        world['status'] = {
+            "speed": 10,
+            "size": 10,
+            "strength": 10,
+            "beauty": 100,
+        }
     elif pet == 'eagle':
         world['image'] = "/static/eagle.jpg"
+        world['status'] = {
+            "speed": 100,
+            "size": 45,
+            "strength": 40,
+            "beauty": 70,
+        }
     return render_template('askpet.html', pet=pet, balance=world['balance'])
 
 @simple_route('/pet/naming/')
@@ -70,7 +95,7 @@ def name(world: dict) -> str:
     return render_template('petnaming.html', pet=world['pet'], image=world['image'], balance=world['balance'])
 
 @simple_route('/pet/naming/', methods=['POST'])
-def name_post(world: dict, other) -> str:
+def name_post(world: dict, name: str) -> str:
     """
     Pet has been named
 
@@ -78,8 +103,17 @@ def name_post(world: dict, other) -> str:
     :param world: The current world
     :return: HTML that shows page
     """
-    world['name'] = request.form['name']
+    world['name'] = name
     return render_template('nameconfirm.html', pet=world['pet'], image=world['image'], name=world['name'], balance=world['balance'])
+
+@simple_route('/pet/status/')
+def check_status(world: dict) -> str:
+    '''
+
+    :param world: The current world
+    :return: HTML that shows page
+    '''
+    return render_template('petstatus.html', pet=world['pet'], image=world['image'], name=world['name'], status=world['status'], balance=world['balance'])
 
 '''@simple_route('/')
 def hello(world: dict) -> str:
