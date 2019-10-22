@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Click on the money to make money:<br>
-    <link rel = "stylesheet" href = "/static/imagefix.css" >
-    <a href="/money2/">
-        <img src="/static/money.jpg/" alt="Picture of money">
-    </a>
+    Solve the math problem to make money:<br>
+    What is {{ a }} + {{ b }}?<br>
+    <form method="POST">
+        Answer:<br>
+        <input type="hidden" name="c" value={{ a+b }}>
+        <input type="text" name="answer"><br>
+        <input type="submit" value="Submit"><br>
+    </form>
 {% endblock %}

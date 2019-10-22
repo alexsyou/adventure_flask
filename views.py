@@ -159,18 +159,29 @@ def make_money(world:dict) -> str:
     :param world: The current world
     :return: HTML that shows the page
     '''
-    return render_template('money.html', balance=world['balance'])
+    a = randint(0,20)
+    b = randint(0,20)
+    c = a+b
+    return render_template('money.html', balance=world['balance'], a=a, b=b, c=c)
 
-@simple_route('/money2/')
-def made_money(world:dict) -> str:
+@simple_route('/money/', methods=['POST'])
+def made_money(world:dict, answer:str, c:str) -> str:
     '''
 
+    :param c: The answer to the math question
+    :param answer: The user answer to the math question
     :param world: The current world
     :return: HTML that shows the page
     '''
-    amount = randint(50,150)
-    world['balance'] += amount
-    return render_template('moneymade.html', balance=world['balance'], amount=amount)
+    try:
+        if int(c) == int(answer):
+            amount = randint(50,150)
+            world['balance'] += amount
+            return render_template('moneymade.html', balance=world['balance'], amount=amount)
+        else:
+            return render_template('nomoney.html', balance=world['balance'], c=c, answer=answer)
+    except ValueError:
+        return render_template('nomoney.html', balance=world['balance'], c=c, answer=answer)
 
 @simple_route('/pet/feed/')
 def feed_pet(world:dict) -> str:
@@ -290,7 +301,7 @@ def contest_attempt(world:dict, which:str) -> str:
         total = 0
         for k in world['status']:
             total += world['status'][k]
-        if total > 300:
+        if total > 350:
             return render_template('contestwin.html', balance=world['balance'], status=world['status'], name=world['name'], win='total')
         elif world['status']['beauty'] > 200:
             return render_template('contestwin.html', balance=world['balance'], status=world['status'], name=world['name'], win='beauty')
