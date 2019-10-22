@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <b>CONGRATULATIONS YOU HAVE WON THE CONTEST OF PETS!</b><br>
+    {% if win == "total" %}
+        Your total attributes so impressed the judges they could not but give you the trophy!<br>
+        <link rel = "stylesheet" href = "/static/image.css">
+        <img src="/static/trophy.jpg/" alt="Picture of a trophy">
+        <a href="/finish/">Finish the game!</a>
+    {% endif %}
+    {% if win == "beauty" %}
+        Your outstanding beauty SO impressed the judges they were willing to award you the trophy!<br>
+        <link rel = "stylesheet" href = "/static/image.css">
+        <img src="/static/trophy.jpg/" alt="Picture of a trophy">
+        <a href="/finish/">Finish the game!</a>
+    {% endif %}
+{% endblock %}

@@ -26,6 +26,7 @@ def hello(world: dict) -> str:
     world['sizepill'] = 0
     world['strengthpill'] = 0
     world['beautypill'] = 0
+    world['contestlevel'] = 0
     return render_template('index.html', balance=world['balance'])
 
 @simple_route('/goto/<where>/')
@@ -110,7 +111,7 @@ def name_post(world: dict, name: str) -> str:
     """
     world['name'] = name
     if name.lower() == "lemon":
-        world['balance'] += 1000
+        world['balance'] += 1200
     return render_template('nameconfirm.html', pet=world['pet'], image=world['image'], name=world['name'], balance=world['balance'])
 
 @simple_route('/pet/status/')
@@ -205,7 +206,105 @@ def true_feed_pet(world:dict, food:str) -> str:
         world['status']['beauty'] += 10
         return render_template('feed.html', balance=world['balance'], stat=food, name=world['name'])
     else:
-        return render_template('pickfeed.html',  balance=world['balance'], speedpill=world['speedpill'], sizepill=world['sizepill'], strengthpill=world['strengthpill'], beautypill=world['beautypill'], name=world['name'])
+        return render_template('pickfeed.html', balance=world['balance'], speedpill=world['speedpill'], sizepill=world['sizepill'], strengthpill=world['strengthpill'], beautypill=world['beautypill'], name=world['name'])
+
+@simple_route('/contest/')
+def contest(world:dict) -> str:
+    '''
+
+    :param world: The current world
+    :return: HTML that shows the current page
+    '''
+    if world['contestlevel'] == 0:
+        return render_template('contest_one.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if world['contestlevel'] == 1:
+        return render_template('contest_two.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if world['contestlevel'] == 2:
+        return render_template('contest_three.html', balance=world['balance'], status=world['status'], name=world['name'])
+
+@simple_route('/contest/<which>/')
+def contest_attempt(world:dict, which:str) -> str:
+    '''
+
+    :param which: The current contest attempt
+    :param world: The current world
+    :return: HTML that shows page
+    '''
+    if which == "speed1":
+        if world['status']['speed'] > 50:
+            world['contestlevel'] = 1
+            return render_template('contest_win_one.html', balance=world['balance'], status=world['status'], name=world['name'], win="Speed")
+        else:
+            world['contestlevel'] = 0
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if which == "size1":
+        if world['status']['size'] > 60:
+            world['contestlevel'] = 1
+            return render_template('contest_win_one.html', balance=world['balance'], status=world['status'], name=world['name'], win="Size")
+        else:
+            world['contestlevel'] = 0
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if which == "strength1":
+        if world['status']['strength'] > 40:
+            world['contestlevel'] = 1
+            return render_template('contest_win_one.html', balance=world['balance'], status=world['status'], name=world['name'], win="Strength")
+        else:
+            world['contestlevel'] = 0
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if which == "beauty1":
+        if world['status']['beauty'] > 75:
+            world['contestlevel'] = 1
+            return render_template('contest_win_one.html', balance=world['balance'], status=world['status'], name=world['name'], win="Beauty")
+        else:
+            world['contestlevel'] = 0
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if which == "speed2":
+        if world['status']['speed'] > 75:
+            world['contestlevel'] = 2
+            return render_template('contest_win_two.html', balance=world['balance'], status=world['status'], name=world['name'], win="Speed")
+        else:
+            world['contestlevel'] = 0
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if which == "size2":
+        if world['status']['size'] > 100:
+            world['contestlevel'] = 2
+            return render_template('contest_win_two.html', balance=world['balance'], status=world['status'], name=world['name'], win="Size")
+        else:
+            world['contestlevel'] = 0
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if which == "strength2":
+        if world['status']['strength'] > 80:
+            world['contestlevel'] = 2
+            return render_template('contest_win_two.html', balance=world['balance'], status=world['status'], name=world['name'], win="Strength")
+        else:
+            world['contestlevel'] = 0
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if which == "beauty2":
+        if world['status']['beauty'] > 125:
+            world['contestlevel'] = 2
+            return render_template('contest_win_two.html', balance=world['balance'], status=world['status'], name=world['name'], win="Beauty")
+        else:
+            world['contestlevel'] = 0
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+    if which == "final":
+        total = 0
+        for k in world['status']:
+            total += world['status'][k]
+        if total > 300:
+            return render_template('contestwin.html', balance=world['balance'], status=world['status'], name=world['name'], win='total')
+        elif world['status']['beauty'] > 200:
+            return render_template('contestwin.html', balance=world['balance'], status=world['status'], name=world['name'], win='beauty')
+        else:
+            return render_template('contestfail.html', balance=world['balance'], status=world['status'], name=world['name'])
+
+@simple_route("/finish/")
+def finish(world:dict) -> str:
+    '''
+
+    :param world: The current world
+    :return: HTML to be shown
+    '''
+    return render_template('end.html', balance=world['balance'], status=world['status'], name=world['name'], image=world['image'])
 '''@simple_route('/')
 def hello(world: dict) -> str:
     """

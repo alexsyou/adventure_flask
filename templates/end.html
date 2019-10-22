@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    The game is over. <strong>{{ name }}</strong> has succeeded in becoming the best Pet ever!
+    <link rel="stylesheet" href="/static/image.css/">
+    <img src={{ image }} alt=Picture of your pet>
+{% endblock %}
