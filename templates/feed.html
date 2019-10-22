@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    You feed <strong>{{ name }}</strong> a {{ stat }} helper.<br>
+    <strong>{{ name }}'s</strong> {{ stat }} was increased by 10.<br>
+    <a href="/pet/feed/">Feed again.</a><br>
+    <a href="/goto/home/">Return home.</a>
+{% endblock %}

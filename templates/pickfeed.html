@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if speedpill>0 %}
+        <a href="/pet/feed/speed/">Feed a speed helper to <strong>{{ name }}</strong>.</a><br>
+    {% endif %}
+    {% if sizepill>0 %}
+        <a href="/pet/feed/size/">Feed a size helper to <strong>{{ name }}</strong>.</a><br>
+    {% endif %}
+    {% if strengthpill>0 %}
+        <a href="/pet/feed/strength/">Feed a strength helper to <strong>{{ name }}</strong>.</a><br>
+    {% endif %}
+    {% if beautypill>0 %}
+        <a href="/pet/feed/beauty/">Feed a beauty helper to <strong>{{ name }}</strong>.</a><br>
+    {% endif %}
+    {% if speedpill==0 and sizepill==0 and strengthpill==0 and beautypill==0 %}
+        You don't have any pills to feed right now.<br>
+    {% endif %}
+    <a href="/goto/home/">Go back home.</a>
+{% endblock %}

@@ -1,6 +1,6 @@
 from route_helper import simple_route
 from flask import render_template, request
-from random import random
+from random import random, randint
 
 CHOOSE_PET = """
 Are you sure you want to choose a {}?<br>
@@ -20,7 +20,7 @@ def hello(world: dict) -> str:
     :param world: Current world
     :return: HTML for the page
     """
-    world['balance'] = 1000
+    world['balance'] = 0
     world['status'] = {}
     world['speedpill'] = 0
     world['sizepill'] = 0
@@ -109,6 +109,8 @@ def name_post(world: dict, name: str) -> str:
     :return: HTML that shows page
     """
     world['name'] = name
+    if name.lower() == "lemon":
+        world['balance'] += 1000
     return render_template('nameconfirm.html', pet=world['pet'], image=world['image'], name=world['name'], balance=world['balance'])
 
 @simple_route('/pet/status/')
@@ -118,7 +120,7 @@ def check_status(world: dict) -> str:
     :param world: The current world
     :return: HTML that shows page
     '''
-    return render_template('petstatus.html', pet=world['pet'], image=world['image'], name=world['name'], status=world['status'], balance=world['balance'])
+    return render_template('petstatus.html', pet=world['pet'], image=world['image'], name=world['name'], status=world['status'], balance=world['balance'], speedpill=world['speedpill'], sizepill=world['sizepill'], strengthpill=world['strengthpill'], beautypill=world['beautypill'])
 
 @simple_route('/purchase/<item>/')
 def purchase_item(world:dict, item:str) -> str:
@@ -168,6 +170,42 @@ def made_money(world:dict) -> str:
     amount = randint(50,150)
     world['balance'] += amount
     return render_template('moneymade.html', balance=world['balance'], amount=amount)
+
+@simple_route('/pet/feed/')
+def feed_pet(world:dict) -> str:
+    '''
+
+    :param world: The current world
+    :return: HTML that shows the page
+    '''
+    return render_template('pickfeed.html', balance=world['balance'], speedpill=world['speedpill'], sizepill=world['sizepill'], strengthpill=world['strengthpill'], beautypill=world['beautypill'], name=world['name'])
+
+@simple_route('/pet/feed/<food>/')
+def true_feed_pet(world:dict, food:str) -> str:
+    '''
+
+    :param world: The current world
+    :param food: The pill that user feeds to the pet
+    :return: HTML that shows the page
+    '''
+    if food == "speed":
+        world['speedpill'] -= 1
+        world['status']['speed'] += 10
+        return render_template('feed.html', balance=world['balance'], stat=food, name=world['name'])
+    elif food == "size":
+        world['sizepill'] -= 1
+        world['status']['size'] += 10
+        return render_template('feed.html', balance=world['balance'], stat=food, name=world['name'])
+    elif food == "strength":
+        world['strengthpill'] -= 1
+        world['status']['strength'] += 10
+        return render_template('feed.html', balance=world['balance'], stat=food, name=world['name'])
+    elif food == "beauty":
+        world['beautypill'] -= 1
+        world['status']['beauty'] += 10
+        return render_template('feed.html', balance=world['balance'], stat=food, name=world['name'])
+    else:
+        return render_template('pickfeed.html',  balance=world['balance'], speedpill=world['speedpill'], sizepill=world['sizepill'], strengthpill=world['strengthpill'], beautypill=world['beautypill'], name=world['name'])
 '''@simple_route('/')
 def hello(world: dict) -> str:
     """
