@@ -1,5 +1,6 @@
 from route_helper import simple_route
 from flask import render_template, request
+from random import random
 
 CHOOSE_PET = """
 Are you sure you want to choose a {}?<br>
@@ -19,8 +20,12 @@ def hello(world: dict) -> str:
     :param world: Current world
     :return: HTML for the page
     """
-    world['balance'] = 0
+    world['balance'] = 1000
     world['status'] = {}
+    world['speedpill'] = 0
+    world['sizepill'] = 0
+    world['strengthpill'] = 0
+    world['beautypill'] = 0
     return render_template('index.html', balance=world['balance'])
 
 @simple_route('/goto/<where>/')
@@ -115,6 +120,54 @@ def check_status(world: dict) -> str:
     '''
     return render_template('petstatus.html', pet=world['pet'], image=world['image'], name=world['name'], status=world['status'], balance=world['balance'])
 
+@simple_route('/purchase/<item>/')
+def purchase_item(world:dict, item:str) -> str:
+    '''
+
+    :param item: The item you would like to purchase
+    :param world: The current world
+    :return: HTML that shows page
+    '''
+    world['current_item'] = item
+    if world['balance'] >= 100:
+        if world['current_item'] == "speed":
+            world['speedpill'] += 1
+            world['balance'] -= 100
+            return render_template('purchase.html', current_item=world['current_item'], balance=world['balance'])
+        elif world['current_item'] == "size":
+            world['sizepill'] += 1
+            world['balance'] -= 100
+            return render_template('purchase.html', current_item=world['current_item'], balance=world['balance'])
+        elif world['current_item'] == 'strength':
+            world['strengthpill'] += 1
+            world['balance'] -= 100
+            return render_template('purchase.html', current_item=world['current_item'], balance=world['balance'])
+        elif world['current_item'] == 'beauty':
+            world['beautypill'] += 1
+            world['balance'] -= 100
+            return render_template('purchase.html', current_item=world['current_item'], balance=world['balance'])
+    else:
+        return render_template('poor.html', current_item=world['current_item'], balance=world['balance'])
+
+@simple_route('/money/')
+def make_money(world:dict) -> str:
+    '''
+
+    :param world: The current world
+    :return: HTML that shows the page
+    '''
+    return render_template('money.html', balance=world['balance'])
+
+@simple_route('/money2/')
+def made_money(world:dict) -> str:
+    '''
+
+    :param world: The current world
+    :return: HTML that shows the page
+    '''
+    amount = randint(50,150)
+    world['balance'] += amount
+    return render_template('moneymade.html', balance=world['balance'], amount=amount)
 '''@simple_route('/')
 def hello(world: dict) -> str:
     """
