@@ -117,6 +117,7 @@ def name_post(world: dict, name: str) -> str:
 @simple_route('/pet/status/')
 def check_status(world: dict) -> str:
     '''
+    Status of your pet
 
     :param world: The current world
     :return: HTML that shows page
@@ -126,6 +127,7 @@ def check_status(world: dict) -> str:
 @simple_route('/purchase/<item>/')
 def purchase_item(world:dict, item:str) -> str:
     '''
+    Buy an item on this page
 
     :param item: The item you would like to purchase
     :param world: The current world
@@ -155,6 +157,7 @@ def purchase_item(world:dict, item:str) -> str:
 @simple_route('/money/')
 def make_money(world:dict) -> str:
     '''
+    Makes money
 
     :param world: The current world
     :return: HTML that shows the page
@@ -167,6 +170,7 @@ def make_money(world:dict) -> str:
 @simple_route('/money/', methods=['POST'])
 def made_money(world:dict, answer:str, c:str) -> str:
     '''
+    Calculates money made
 
     :param c: The answer to the math question
     :param answer: The user answer to the math question
@@ -186,6 +190,7 @@ def made_money(world:dict, answer:str, c:str) -> str:
 @simple_route('/pet/feed/')
 def feed_pet(world:dict) -> str:
     '''
+    Feeds pet
 
     :param world: The current world
     :return: HTML that shows the page
@@ -195,6 +200,7 @@ def feed_pet(world:dict) -> str:
 @simple_route('/pet/feed/<food>/')
 def true_feed_pet(world:dict, food:str) -> str:
     '''
+    Feeds pet again
 
     :param world: The current world
     :param food: The pill that user feeds to the pet
@@ -222,6 +228,7 @@ def true_feed_pet(world:dict, food:str) -> str:
 @simple_route('/contest/')
 def contest(world:dict) -> str:
     '''
+    Returns the page of the contest you're on
 
     :param world: The current world
     :return: HTML that shows the current page
@@ -236,6 +243,7 @@ def contest(world:dict) -> str:
 @simple_route('/contest/<which>/')
 def contest_attempt(world:dict, which:str) -> str:
     '''
+    Calculates the win/loss of contest
 
     :param which: The current contest attempt
     :param world: The current world
@@ -283,6 +291,7 @@ def contest_attempt(world:dict, which:str) -> str:
 @simple_route("/finish/")
 def finish(world:dict) -> str:
     '''
+    Finish page
 
     :param world: The current world
     :return: HTML to be shown
