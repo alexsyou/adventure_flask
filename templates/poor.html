@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    You are too poor to purchase {{ current_item }}.<br>
+    <div class="alert alert-danger">You are too poor to purchase {{ current_item }}.</div><br>
     <a href="/money/">Make some cash.</a><br>
     <a href="/goto/town/">Return to the town.</a>
 {% endblock %}
